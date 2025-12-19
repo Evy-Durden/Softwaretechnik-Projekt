@@ -22,7 +22,7 @@ buildNumber.properties
 *.iml
 *.ipr
 out/
-
+htmlReport/
 
 ### NetBeans ###
 /nbproject/private/
