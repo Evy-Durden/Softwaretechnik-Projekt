@@ -1,0 +1,59 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Code auschecken
+    - name: Checkout Code
+      uses: actions/checkout@v4
+    
+    # 2. Java Setup
+    - name: Setup JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    # 3. Cache Dependencies
+    - name: Cache Maven packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    
+    # 4. Build durchführen
+    - name: Build with Maven
+      run: mvn clean package
+    
+    # 5. Tests ausführen
+    - name: Run Tests
+      run: mvn test
+    
+    # 6. Test-Report hochladen (bei Fehler)
+    - name: Upload Test Results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: target/surefire-reports/
+    
+    # 7. Code Coverage (optional, nur wenn JaCoCo konfiguriert ist)
+    - name: Generate Coverage Report
+      run: mvn jacoco:report
+    
+    # 8. Artefakt speichern
+    - name: Upload JAR
+      uses: actions/upload-artifact@v4
+      with:
+        name: application-jar
+        path: target/*.jar
