@@ -27,6 +27,7 @@ public class CaloricIntakeController implements Controller {
 
     }
 
+    // Dependency Injection
     @Override
     public void setNavigator(Navigator navigator) {
         this.navigator = navigator;
@@ -55,7 +56,7 @@ public class CaloricIntakeController implements Controller {
         try {
             int calories = Integer.parseInt(caloriesField.getText());
             calTra.addCalories(calories);
-            // observer
+            // observer of the observer pattern
             remainingField.textProperty().bind(calTra.remainingCaloriesProperty().asString());
             caloriesOverflowLabel.setVisible(false);
         } catch (NegativeCaloriesException e) {
@@ -75,7 +76,7 @@ public class CaloricIntakeController implements Controller {
     @FXML
     public void handleReset(ActionEvent event) {
         calTra.reset();
-        // observer
+        // observer of the observer pattern
         remainingField.textProperty().bind(calTra.getDailyLimit().asString());
         caloriesField.setText("");
         caloriesOverflowLabel.setVisible(false);

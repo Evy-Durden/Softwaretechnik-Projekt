@@ -1,18 +1,18 @@
 package com.fitapp.tools;
 
-import jdepend.framework.JDepend;
-import jdepend.framework.JavaPackage;
-import jdepend.framework.PackageFilter;
-
-import java.io.File;
-import java.util.Collection;
+import jdepend.framework.JDepend; // analysis engine
+import jdepend.framework.JavaPackage; // result object representing one analyzed package
+import jdepend.framework.PackageFilter; // allows inclusion/exclusion of packages
+import java.util.Collection; // used to hold analyzed packages
 
 public class JDependRunner {
 
     public static void main(String[] args) throws Exception {
 
+        // create analysis engine
         JDepend jdepend = new JDepend();
 
+        // filtering packages, deciding which packages JDepend should consider for analysis
         PackageFilter filter = new PackageFilter() {
 
             public boolean filter(String packageName) {
@@ -26,12 +26,13 @@ public class JDependRunner {
         jdepend.addDirectory("target/classes");
 
 
-        // Run analysis
+        // Run analysis: scan class files, group them into packages, build dependency graph, compute metrics
         jdepend.analyze();
 
         // Print summary report
         @SuppressWarnings("unchecked")
         // telling compiler that I am aware that getPackages returns a raw Collection ,and I am casting it
+        // retrieving analyzed packages
         Collection<JavaPackage> packages = (Collection<JavaPackage>) jdepend.getPackages();
 
         System.out.println("---- JDepend Report ----");

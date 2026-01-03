@@ -23,6 +23,7 @@ public class MainMenuController implements Controller {
 
     }
 
+    // Dependency Injection
     @Override
     public void setNavigator(Navigator navigator) {
         this.navigator = navigator;

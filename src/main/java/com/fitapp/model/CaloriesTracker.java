@@ -7,10 +7,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class CaloriesTracker {
 
     /**
-     * This class uses Java Property classes to implement and take advantage of the observer pattern.
+     * This class uses JavaFX Property classes to implement and take advantage of the observer pattern.
      * The observer pattern is a design pattern in which an object, known as the subject,
      * maintains a list of its dependents, known as observers, and notifies them automatically of any state changes.
-     * These property classes are observers under the hood.
+     * These property classes are observers under the hood. They wrap a value together with change notification.
+     * They are objects which store a value, notify listeners on value changes and can be bound to other properties.
+     * Properties = observable state, holds values
+     * Binding = observable relationship, hold formulas
      *
      * Why do we use this:
      * Loose coupling: Observers are notified of state changes without needing to know anything about the subject
@@ -25,17 +28,17 @@ public class CaloriesTracker {
      */
 
     // attributes
+    // subjects of the observer pattern
     private final IntegerProperty consumed = new SimpleIntegerProperty(0);
     private final IntegerProperty dailyLimit;
 
     // constructor
     public CaloriesTracker(int dailyLimit) {
+        // wrapping the raw int in an observable property
         this.dailyLimit = new SimpleIntegerProperty(dailyLimit);
     }
 
-    // getters and setters
-
-
+    // getters - returning the properties themselves not just the value
     public IntegerProperty getDailyLimit() {
         return dailyLimit;
     }
@@ -49,6 +52,7 @@ public class CaloriesTracker {
         if (consumed.get() + calories > dailyLimit.get()) {
             throw new CalorieLimitExceededException();
         }
+        // observer trigger: JavaFX automatically notifies listeners and all bindings
         consumed.set(consumed.get() + calories);
     }
 
@@ -56,7 +60,13 @@ public class CaloriesTracker {
         consumed.set(0);
     }
 
+    // returns a computed observable value, it is derived not stored
+    // IntegerBinding is an observable, read-only integer value which is automatically recalculated whenever
+    // one of its dependencies(dailyLimit and consumed) changes.
     public IntegerBinding remainingCaloriesProperty() {
+        // subtract creates a binding which observes dailyLimit and consumed
+        // whenever either changes the result updates automatically
+        // IntegerBinding is defined by the expression dailyLimit.subtract(consumed)
         return (IntegerBinding) dailyLimit.subtract(consumed);
     }
 }

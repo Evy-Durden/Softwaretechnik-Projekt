@@ -32,10 +32,10 @@ class LoginControllerTest extends ApplicationTest {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         Parent root = loader.load();
 
-        // Inject the controller into the loaded scene
+        // retrieve controller created by loader
         logCon = loader.getController();
 
-        // Inject a real Navigator
+        // Inject a real Navigator to allow real view switching and avoid mocking JavaFX navigation
         logCon.setNavigator(new Navigator(stage));
 
         // Attach the scene and display it
@@ -44,9 +44,10 @@ class LoginControllerTest extends ApplicationTest {
         stage.show();
     }
 
+    // runs before each test method
     @BeforeEach
     void setUp() {
-        // Query the fields and labels by their IDs
+        // Query the fields and labels by their IDs to get UI node
         usernameField = lookup("#usernameField").query();  // query by id
         passwordField = lookup("#passwordField").query();  // query by id
         errorLabel = lookup("#errorLabel").query();  // query by id
@@ -62,7 +63,7 @@ class LoginControllerTest extends ApplicationTest {
         clickOn("#loginButton");
         // Ensure all FX events have been processed
         waitForFxEvents();
-        // Assert: Check that the error label is not visible and the scene changed
+        // Assert: Check that the error label is not visible and the scene changed - if login succeeded
         assertThat(errorLabel.isVisible()).isFalse();
     }
 
@@ -84,7 +85,7 @@ class LoginControllerTest extends ApplicationTest {
     @Test
     void testChangeView(){
 
-        // Run on JavaFX thread
+        // Run on JavaFX thread, prevents thread violations
         interact(() -> {logCon.changeView("mainMenu.fxml"); // the FXML you want to switch to
         });
 

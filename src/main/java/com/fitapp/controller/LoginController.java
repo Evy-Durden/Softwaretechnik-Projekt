@@ -3,12 +3,7 @@ import com.fitapp.navigation.Navigator;
 
 import com.fitapp.model.EmptyFieldException;
 import com.fitapp.model.InvalidCredentialsException;
-import java.io.IOException;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import com.fitapp.model.UserDatabaseCSV;
 import javafx.event.ActionEvent;
@@ -26,6 +21,7 @@ public class LoginController implements Controller {
 
     }
 
+    // Dependency Injection
     @Override
     public void setNavigator(Navigator navigator) {
         this.navigator = navigator;
