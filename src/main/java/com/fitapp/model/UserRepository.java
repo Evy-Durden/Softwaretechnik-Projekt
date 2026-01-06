@@ -7,14 +7,14 @@ public interface UserRepository {
      * At the moment we are using a CSV file which functions as an in-memory database.
      *
      * Why is this useful:
-     * It implements the strategy pattern - define a family of behaviors, encapsulate each one and make them interchangebale
+     * It implements the strategy pattern - define a family of behaviors, encapsulate each one and make them interchangeable
      * The caller does not care how something is actually done, he/she just cares what it can do. No matter the underlying
      * database (CSV, SQLite etc.) we need to validate the user input and authenticate the user. The strategies are
      * interchangeable.
      *
      * Furthermore, it supports SOLID principles:
      * Single Responsibility: each strategy does one thing
-     * Open/Closed: we can add a new strategy - new way to implement a database - without modifying exisiting code
+     * Open/Closed: we can add a new strategy - new way to implement a database - without modifying existing code
      * Dependency Inversion: Code details should depend on abstractions, high-level modules(business logic)
      * should not depend on low-level modules(technical details)
      *

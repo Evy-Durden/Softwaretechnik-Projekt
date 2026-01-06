@@ -12,7 +12,7 @@ public class Navigator {
     /**
      * The Navigator class is important for dependency injection and makes sure that there is no JavaFX code
      * in the controller classes which adhere to the Dependency Inversion principle of SOLID. This way controllers are
-     * dependend on an abstraction (Navigator class - high level module) and not any JavaFX classes (low-level module)
+     * dependent on an abstraction (Navigator class - high level module) and not any JavaFX classes (low-level module)
      * */
 
     private Stage stage;

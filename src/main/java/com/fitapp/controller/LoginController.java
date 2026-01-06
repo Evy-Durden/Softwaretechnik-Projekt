@@ -32,7 +32,10 @@ public class LoginController implements Controller {
         navigator.changeView(fxmlFile);
     }
 
-
+    // marks fields and methods in a controller so that the FXMLLoader is allowed to access them via reflection and
+    // connect them to elements defined in the FXML file. It is the interface between UI and logic
+    // allows the FXMLLoader to inject references to UI elements defined in the FXML file into the controller
+    // defines which parts of the controller are exposed to the FXML-based view while preserving encapsulation.
     @FXML
     private TextField usernameField;
     @FXML
