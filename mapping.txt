@@ -1,0 +1,76 @@
+Zuordnung von Pattern, Prinzipien und Technologien auf das Projekt:
+
+- DRY: Vererbung (Exercise Subklassen, Exceptions), Strategy Pattern (UserRepository Interface), Zentralisierung von Logik (Navigator)
+- SOLID Single Responsibility: Klassen wurden nach diesem Prinzip designed, Nutzung des Strategy Patterns
+- SOLID Open/End: Nutzung von Interfaces(Exportable, UserRepository) und Vererbung(Subklassen von Exercise)
+- SOLID Interface Segragation: Klassen sollten keine Interfaces implementieren, die sie nicht nutzen - das ist bei unseren Klassen auch nicht der Fall
+- SOLID Dependency Inversion: Contoller sind von Abstraction (Navigator Klasse) abhängig nicht von JavaFX Klassen (low-level Detail)
+- Separations of Concern: Navigator Klasse - Controller unabhängig von JavaFX
+- Software- und Architekturmetriken: JDepend
+	- helfen fehlende Softwarequalität oder Softwarekomplexität sichtbar zu machen
+	- Regelverletzungen oder Probleme im Code werden aufgelistet und optimal visualisiert
+- Strategy Pattern: UserRepository Interface -> austauschbare Nutzerdatenbank, Unterstützung der SOLID Prinzipien
+- Observer Pattern: CaloriesTracker -> loose coupling, möglichst gerine Kopplung
+- Dependency Injection: Klasse sollte Abhängigkeiten nicht selber instanzieren sondern von außen bekommen
+	- Navigator Klasse, setNavigator methode in Controller Klassen
+- GUI Framework: JavaFX, Separations of Concern, klare Trennung von Logik und UI Design
+	- Der Controller arbeitet auf einer bereits definierten Oberfläche, statt sie selbst zu konstruieren. Enthält Verhalten, Logik
+	- FXML-Datei: beschreibt was die UI ist (Layout, Struktur), FXMLLoader: liest diese Beschreibung, erzeugt zur Laufzeit die JavaFX-Objekte
+	- Wartbarkeit und Änderbarkeit verbessern sich: Änderungen am Layout erfordern keine Änderungen an der Logik.
+- Buildmanagement: Maven - definiert alles in einer Datei (POM), Dependency Management, Plugin System
+- Testing: JUnit Framework, Unit-Tests, Assertions
+- Code Coverage: Jacoco Framework
+- Java Coding Standards: Checkstyle
+- Kohäsion: einhalten des SRP wo immer es geht, Klasse nur eine Aufgabe erfüllen
+- Kopplung: Grad der Abhängigkeit von Komponenten
+	- durch hohe Kohäsion, versuchen die Kopplung möglichst gering zu halten, Dependency Injection(Navigator Klasse)
+- Continuous Integration: Praxis in SE, häufiges commiten, automatisierter Build, automatisierte Tests, sofortiges Feedback
+	- Maven, GitHub Actions
+
+Alle diese Aspekte dienen dazu eine gute Softwarearchitektur aufzubauen:
+- Änderbarkeit: Wie wird sichergestellt, dass Änderungen im System möglichst geringe Auswirkungen hat
+- Wartbarkeit
+- Lesbarkeit/Verständlich
+- Testbar: Kann ich meine Komponenten gut testen?
+- Wiederverwendbarkeit: Klassen gut gekapselt? Erbringt eine Klasse auch nur einen Dienst? Kümmert sich eine Klasse nur um ihre Daten?
+- Qualität
+
+Allgemein:
+
+- Lastenheft: Zusammenfassung aller fachlichen Basisanforderungen, das Softwareprodukt aus Sicht des Auftraggebers erfüllen muss.
+- Pflichtenheft: konkrete Umsetzung der Anforderungen, alle zu realisierenden Anforderungen, vertraglich bindend, genaue Beschreibung
+
+- funktionale Anforderungen: 
+	- beschreiben was ein System tun soll
+	- Welche Funktionen muss das System bereitstellen, um die Bedürfnisse der Nutzer zu erfüllen?
+	- meist sichtbar für Anwendur, lassen sich durch funktionale Tests testen
+- nicht-funktionale Anforderungen:
+	- beschreiben wie gut ein System seine Funktionen erfüllt oder unter welchen Rahmenbedingungen es arbeitet
+	- beziehen sich also auf Qualitätsmerkmale, Einschränkungen oder Betriebsbedingungen
+	- Performance, Wartbarkeit, Sicherheit, Usability
+	- oft nicht direkt sichtbar für den Endnutzer, schwerer zu testen, häufig systemweit
+
+- statische Diagramme:
+	- Strukturdiagramme: Package Diagram, Class Diagram, Object Diagram
+	- Architekturdiagramme: Deployment Diagram, Component Diagram, Composit Structure Diagram, Subsystem Diagram
+- dynamische Diagramme:
+	- Verhaltensdiagramme: Use Case Diagram, Activity Diagram, State Diagram
+	- Interaktionsdiagramme: Sequence Diagram, Interaction Overview, Communication Diagram, Timing Diagram
+
+	- Klassendiagramm: Klassen und ihre Beziehungen, Assoziation welche Klasse von anderen verwendet wird, innere Struktur von Klasse
+	- Komponentendiagramm: Struktur von System, Sammlung von Klassen, Designpattern wie MVC
+	- Paketdiagramm: strutkuriert Namensraum, modelliert Abhängigkeiten
+	- Use-Case Diagramm: Fälle der Anwendung, was will man damit machen
+	- Akivitätsdiagramm: visualisieren und erklären Ablauf des Programms. Abfolge und Leitung durch Anwendung
+	- Zustandsdiagramm: Verhalten von System bei bestimmten Ereignissen
+	- Sequenzdiagramm: dynamische Sichtweise auf das System, wie interagieren Klassen, Nachrichten aka Methodenaufrufe im zeitlichen Ablauf
+
+- Stakeholder: Interessengruppen, Repräsentanten, alle die betroffen sind und Einfluss darauf haben
+- Scrum: agil, Prozesskette, Rolle
+	- Prozess: Product backlog item, Sprint, Daily Scrum, Sprint Review, Sprint Retrospective
+	- Rollen: Product Owner - Repräsentant des Kunden, Team - Entwickler, Scrum Master - Verwalter von Scrum
+	
+- Testebenen: Modul-Klasse-Methode, Komponenten, Schicht, System
+- Unit-Test: Klassentest, testen, ob für allen Input der Methoden, ein korrekter / erwarteter Output zurückgegeben wird
+- Assertions: kleinste/unterste Ebene von Softwaretests
+
